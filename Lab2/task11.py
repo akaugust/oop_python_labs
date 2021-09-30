@@ -37,11 +37,3 @@ if __name__ == "__main__":
     print(first.width)
     print(first.rectangle_area())
     print(first.rectangle_perimeter())
-
-
-
-
-
-
-
-
