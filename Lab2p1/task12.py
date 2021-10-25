@@ -2,7 +2,10 @@ import math
 
 
 class Rational:
-    """Performs arithmetic with fractions"""
+    """
+    Class with numerator and predator
+    Performs arithmetic with fractions
+    """
 
     def __init__(self, numerator=1, detonator=1):
         if not isinstance(numerator, int):
@@ -16,14 +19,18 @@ class Rational:
 
     def print_fraction(self):
         """Returns Rational numbers in the form a/b"""
-        same_gdc = math.gcd(self.__numerator, self.__detonator)
-        num = self.__numerator // same_gdc
-        det = self.__detonator // same_gdc
-        return '/'.join(list(map(str, (num, det))))
+        same_gcd = math.gcd(self.__numerator, self.__detonator)
+        num = self.__numerator // same_gcd
+        det = self.__detonator // same_gcd
+        return f"{num} / {det}"
 
     def print_float(self):
         """Returns Rational numbers in floating-point format"""
         return self.__numerator / self.__detonator
+
+    def __str__(self):
+        return f"numerator - {self.__numerator}, width - {self.__detonator}\n" \
+               f"Area: {self.print_fraction()}, perimeter - {self.print_float()}\n"
 
 
 if __name__ == "__main__":

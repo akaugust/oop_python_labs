@@ -1,7 +1,10 @@
 class Rectangle:
-    """Has attributes length and width, provides methods that calculate the perimeter and the area of the rectangle"""
+    """
+    Class that has attributes length and width, provides methods
+    that calculate the perimeter and the area of the rectangle
+    """
 
-    def __init__(self, length=1, width=1):
+    def __init__(self, length=1.0, width=1.0):
         self.__length = length
         self.__width = width
 
@@ -11,11 +14,13 @@ class Rectangle:
         return self.__length
 
     @length.setter
-    def length(self, len):
+    def length(self, leng):
         """Length setter"""
-        if not isinstance(len, float) or len <= 0.0 or len > 20.0:
-            raise ValueError("Wrong length!")
-        self.__length = len
+        if not isinstance(leng, float):
+            raise TypeError("Wrong type of length!")
+        if leng <= 0.0 or leng > 20.0:
+            raise ValueError("Wrong value of length")
+        self.__length = leng
 
     @property
     def width(self):
@@ -25,8 +30,10 @@ class Rectangle:
     @width.setter
     def width(self, wid):
         """Width setter"""
-        if not isinstance(wid, float) or wid <= 0.0 or wid > 20.0:
-            raise ValueError("Wrong width!")
+        if not isinstance(wid, float):
+            raise TypeError("Wrong type of width!")
+        if wid <= 0.0 or wid > 20.0:
+            raise ValueError("Wrong value of width!")
         self.__width = wid
 
     def rectangle_area(self):
@@ -37,11 +44,15 @@ class Rectangle:
         """Returns perimeter of rectangle"""
         return 2 * (self.__length + self.__width)
 
+    def __str__(self):
+        return f"Length - {self.__length}, width - {self.__width}\n" \
+               f"Area: {self.rectangle_area()}, perimeter - {self.rectangle_perimeter()}\n"
+
 
 if __name__ == "__main__":
+
     first = Rectangle()
-    first.length = 5.75
-    print(first.length)
-    print(first.width)
+    first.length = 1.25
     print(first.rectangle_area())
     print(first.rectangle_perimeter())
+    print(first)
