@@ -5,7 +5,6 @@ class Events:
     """
     Class hat creates events(name, tickets` quantities and prices)
     """
-    all_events = []
     events_tickets = []
     advance_tickets = 0
     late_tickets = 0
@@ -39,7 +38,6 @@ class Events:
             "Student quantity": self.student,
             "Student price": self.student_price
         }
-        self.all_events.append(event)
         with open(self.filename, "w") as write_file:
             json.dump(event, write_file)
         write_file.close()
@@ -137,6 +135,9 @@ class Events:
 
 
 class Tickets:
+    """
+    Class which creates regular tickets
+    """
     file_tickets = []
 
     def __init__(self, event, number, days, price, ticket_type="Regular ticket"):
@@ -173,8 +174,6 @@ class Tickets:
         """Event setter"""
         if not isinstance(event, Events):
             raise TypeError("That is not an Event type!")
-        if event not in event.all_events:
-            raise ValueError("This event doesn`t exist!")
         self.__event = event
 
     @property
@@ -239,7 +238,9 @@ class Tickets:
 
 
 class AdvanceTicket(Tickets):
-
+    """
+    Class which creates advance tickets
+    """
     def __init__(self, event, number, days):
         if days < 60:
             raise ValueError("This ticket can be purchased only 60 or more days before the event!")
@@ -252,7 +253,9 @@ class AdvanceTicket(Tickets):
 
 
 class LateTicket(Tickets):
-
+    """
+    Class which creates late tickets
+    """
     def __init__(self, event, number, days):
         if days > 10:
             raise ValueError("This ticket can be purchased only fewer than 10 days before the event!")
@@ -265,7 +268,9 @@ class LateTicket(Tickets):
 
 
 class StudentTicket(Tickets):
-
+    """
+    Class which creates student tickets
+    """
     def __init__(self, event, number, days):
         with open(event.filename, "r") as read_file:
             info = json.load(read_file)
