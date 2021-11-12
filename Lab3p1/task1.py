@@ -2,6 +2,10 @@ import json
 
 
 class Events:
+    """
+    Class hat creates events(name, tickets` quantities and prices)
+    """
+    all_events = []
     events_tickets = []
     advance_tickets = 0
     late_tickets = 0
@@ -22,6 +26,7 @@ class Events:
         Events.add_event(self)
 
     def add_event(self):
+        """Adds event`s dict to the file"""
         event = {
             "Filename": self.filename,
             "Name": self.name,
@@ -34,6 +39,7 @@ class Events:
             "Student quantity": self.student,
             "Student price": self.student_price
         }
+        self.all_events.append(event)
         with open(self.filename, "w") as write_file:
             json.dump(event, write_file)
         write_file.close()
@@ -73,7 +79,7 @@ class Events:
 
     @regular.setter
     def regular(self, regular):
-        """regular type ticket quantity setter"""
+        """Regular type ticket quantity setter"""
         if not isinstance(regular, int):
             raise TypeError("Wrong type of regular tickets quantity!")
         if regular <= 0:
@@ -82,12 +88,12 @@ class Events:
 
     @property
     def advance(self):
-        """advance getter"""
+        """Advance getter"""
         return self.__advance
 
     @advance.setter
     def advance(self, advance):
-        """advance type ticket quantity setter"""
+        """Advance type ticket quantity setter"""
         if not isinstance(advance, int):
             raise TypeError("Wrong type of advance tickets quantity!")
         if advance <= 0:
@@ -96,12 +102,12 @@ class Events:
 
     @property
     def late(self):
-        """late type ticket quantity getter"""
+        """Late type ticket quantity getter"""
         return self.__late
 
     @late.setter
     def late(self, late):
-        """late type ticket quantity setter"""
+        """Late type ticket quantity setter"""
         if not isinstance(late, int):
             raise TypeError("Wrong type of late tickets quantity!")
         if late <= 0:
@@ -110,31 +116,17 @@ class Events:
 
     @property
     def student(self):
-        """student type ticket quantity getter"""
+        """Student type ticket quantity getter"""
         return self.__student
 
     @student.setter
     def student(self, student):
-        """student type ticket quantity setter"""
+        """Student type ticket quantity setter"""
         if not isinstance(student, int):
             raise TypeError("Wrong type of student tickets quantity!")
         if student <= 0:
             raise ValueError("Student quantity can`t be 0 or lower!")
         self.__student = student
-
-    def get_number(self, number):
-        with open("tickets_info.json", "r") as read_file:
-            info = json.load(read_file)
-        for ticket in info:
-            if ticket.get("Event") == self.name and ticket.get("Number") == number:
-                return ticket
-
-    def get_ticket_price(self, number):
-        with open("tickets_info.json", "r") as read_file:
-            info = json.load(read_file)
-        for ticket in info:
-            if ticket.get("Event") == self.name and ticket.get("Number") == number:
-                return ticket.get("Price")
 
     def __str__(self):
         return f"Event: \n" \
@@ -158,6 +150,7 @@ class Tickets:
             raise ValueError("There are no more tickets!")
 
     def add_ticket(self):
+        """Adds ticket to the tickets` file"""
         ticket = {
             "Event": self.event.name,
             "Number": self.number,
@@ -172,22 +165,26 @@ class Tickets:
 
     @property
     def event(self):
+        """Event getter"""
         return self.__event
 
     @event.setter
     def event(self, event):
+        """Event setter"""
         if not isinstance(event, Events):
             raise TypeError("That is not an Event type!")
+        if event not in event.all_events:
+            raise ValueError("This event doesn`t exist!")
         self.__event = event
 
     @property
     def number(self):
-        """number type ticket quantity getter"""
+        """Number type ticket quantity getter"""
         return self.__number
 
     @number.setter
     def number(self, number):
-        """number type ticket quantity setter"""
+        """Number type ticket quantity setter"""
         if not isinstance(number, int):
             raise TypeError("Wrong type of number!")
         if number <= 0:
@@ -199,12 +196,12 @@ class Tickets:
 
     @property
     def days(self):
-        """days getter"""
+        """Days getter"""
         return self.__days
 
     @days.setter
     def days(self, days):
-        """days setter"""
+        """Days setter"""
         if not isinstance(days, int):
             raise TypeError("Wrong type of days!")
         if days <= 0:
@@ -212,7 +209,26 @@ class Tickets:
         self.__days = days
 
     @staticmethod
+    def get_number(event, number):
+        """Finds ticket by it`s number"""
+        with open("tickets_info.json", "r") as read_file:
+            info = json.load(read_file)
+        for ticket in info:
+            if ticket.get("Event") == event.name and ticket.get("Number") == number:
+                return ticket
+
+    @staticmethod
+    def get_ticket_price(event, number):
+        """Finds ticket`s price"""
+        with open("tickets_info.json", "r") as read_file:
+            info = json.load(read_file)
+        for ticket in info:
+            if ticket.get("Event") == event.name and ticket.get("Number") == number:
+                return ticket.get("Price")
+
+    @staticmethod
     def get_regular_price(filename):
+        """Gets regular price of the ticket from event"""
         with open(filename, "r") as read_file:
             info = json.load(read_file)
         return info.get("Regular price")
@@ -272,12 +288,12 @@ if __name__ == '__main__':
     buy_ticket7 = StudentTicket(e1, 7, 14)
     print(buy_ticket1, buy_ticket2, buy_ticket3, buy_ticket4, buy_ticket5, buy_ticket6, buy_ticket7, sep='\n')
 
-    e2 = Events("java.json", "Java", 1, 1, 1, 1, 75)
-    buy_ticket8 = Tickets(e2, 1, 15, Tickets.get_regular_price(e2.filename))
-    buy_ticket9 = AdvanceTicket(e2, 2, 61)
-    buy_ticket10 = LateTicket(e2, 3, 2)
-    buy_ticket11 = StudentTicket(e2, 4, 10)
-    print('', buy_ticket8, buy_ticket9, buy_ticket10, buy_ticket11, sep='\n')
+    # e2 = Events("java.json", "Java", 1, 1, 1, 1, 75)
+    # buy_ticket8 = Tickets(e2, 1, 15, Tickets.get_regular_price(e2.filename))
+    # buy_ticket9 = AdvanceTicket(e2, 2, 61)
+    # buy_ticket10 = LateTicket(e2, 3, 2)
+    # buy_ticket11 = StudentTicket(e2, 4, 10)
+    # print('', buy_ticket8, buy_ticket9, buy_ticket10, buy_ticket11, sep='\n')
 
-    print(e1.get_number(3))
-    print(e1.get_ticket_price(3))
+    print(Tickets.get_number(e1, 7))
+    print(Tickets.get_ticket_price(e1, 3))
