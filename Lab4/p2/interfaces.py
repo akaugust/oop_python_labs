@@ -6,16 +6,16 @@ class ITeacher(ABC):
     @property
     @abstractmethod
     def name(self):
-        pass
+        raise NotImplementedError
 
     @name.setter
     @abstractmethod
     def name(self, name):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def __str__(self):
-        pass
+        raise NotImplementedError
 
 
 class ICourse(ABC):
@@ -23,66 +23,66 @@ class ICourse(ABC):
     @property
     @abstractmethod
     def name(self):
-        pass
+        raise NotImplementedError
 
     @name.setter
     @abstractmethod
     def name(self, name):
-        pass
+        raise NotImplementedError
 
     @property
     @abstractmethod
     def teacher(self):
-        pass
+        raise NotImplementedError
 
     @teacher.setter
     @abstractmethod
     def teacher(self, teacher):
-        pass
+        raise NotImplementedError
 
     @property
     @abstractmethod
     def course_program(self):
-        pass
+        raise NotImplementedError
 
     @course_program.setter
     @abstractmethod
     def course_program(self, course_program):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def __str__(self):
-        pass
+        raise NotImplementedError
 
 
 class ILocalCourse(ABC):
 
     @abstractmethod
     def __str__(self):
-        pass
+        raise NotImplementedError
 
 
 class IOffsiteCourse(ABC):
 
     @abstractmethod
     def __str__(self):
-        pass
+        raise NotImplementedError
 
 
 class ICourseFactory(ABC):
 
     @abstractmethod
     def insert_course(self, course_name, teacher_name, course_program, course_type):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def insert_teacher(self, name):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def select_all_teachers(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def select_all_courses(self):
-        pass
+        raise NotImplementedError
