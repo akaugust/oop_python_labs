@@ -3,7 +3,7 @@ from abc import ABC
 from interfaces import ICourse, ITeacher, ILocalCourse, IOffsiteCourse, ICourseFactory
 
 import pymysql
-from config import host, user, password, database
+from config import HOST, USER, PASSWORD, DATABASE
 
 
 class Teacher(ITeacher):
@@ -260,10 +260,10 @@ class CourseFactory(ICourseFactory):
     def connect():
         """Creating connector"""
         connector = pymysql.connect(
-            host=host,
-            user=user,
-            password=password,
-            database=database,
+            host=HOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE,
         )
         return connector
 

@@ -1,4 +1,4 @@
-host = "localhost"
-user = "root"
-password = "123"
-database = "courses_py"
+HOST = "localhost"
+USER = "root"
+PASSWORD = "123"
+DATABASE = "courses_py"
