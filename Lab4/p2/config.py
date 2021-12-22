@@ -1,4 +1,4 @@
 host = "localhost"
 user = "root"
-password = "Anutka.1257.z"
+password = "123"
 database = "courses_py"
